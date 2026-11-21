@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OutreachOS — AI outreach & lead intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--ink:#14183a;--ink2:#1f2552;--bg:#f2f4fa;--card:#fff;--line:#e3e6f2;--txt:#1a1d33;--mut:#6b7090;--acc:#3d4dff;--amb:#ffb020;--ok:#12a36b;--bad:#e5484d}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;color:var(--txt);background:var(--bg)}
+button,input,select,textarea{font:inherit}.hide{display:none!important}
+#auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.brand{background:var(--ink);color:#fff;padding:64px;display:flex;flex-direction:column;justify-content:space-between;background-image:radial-gradient(circle at 85% 15%,#3d4dff55,transparent 45%),radial-gradient(circle at 10% 90%,#ffb02033,transparent 40%)}
+.brand h1{font-size:46px;line-height:1.08;font-weight:800;margin:0 0 16px;max-width:520px}.brand p{color:#b9bfe6;max-width:460px;font-size:17px}
+.brand ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;color:#d8dcf5}.brand li:before{content:'✓';color:var(--amb);margin-right:10px;font-weight:800}
+.logo{font-weight:800;font-size:20px;display:flex;gap:10px;align-items:center}.logo i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--acc),var(--amb));display:block}
+.form{display:flex;align-items:center;justify-content:center;padding:32px}.form form{width:100%;max-width:380px;display:grid;gap:14px}.form h2{margin:0;font-size:26px}
+label{font-size:13px;font-weight:600;color:var(--mut);display:grid;gap:6px}
+input,select,textarea{padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#fff;width:100%;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px #3d4dff22}
+.btn{border:0;background:var(--acc);color:#fff;padding:11px 18px;border-radius:10px;font-weight:600;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn.sec{background:#fff;color:var(--txt);border:1px solid var(--line)}.btn:disabled{opacity:.6;cursor:wait}
+.link{background:none;border:0;color:var(--acc);cursor:pointer;font-weight:600;padding:0}
+#app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+aside{background:var(--ink);color:#c9cef0;padding:22px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px}aside .logo{color:#fff;margin:0 8px 22px}
+aside button{all:unset;cursor:pointer;padding:10px 12px;border-radius:10px;display:flex;gap:12px;align-items:center;font-weight:500}aside button:hover{background:var(--ink2)}aside button.on{background:var(--acc);color:#fff}
+aside .sp{flex:1}main{padding:32px 40px;max-width:1280px;width:100%}
+h3{margin:0 0 4px;font-size:24px}.sub{color:var(--mut);margin:0 0 24px}
+.grid{display:grid;gap:16px}.k4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:1fr 1.6fr 1fr}.c2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}.card h4{margin:0 0 12px;font-size:15px}
+.kpi b{display:block;font-size:34px;font-weight:800;line-height:1.1}.kpi span{color:var(--mut);font-size:13px}.kpi.hl{background:var(--ink);color:#fff;border:0}.kpi.hl span{color:#b9bfe6}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--mut);font-weight:600;font-size:13px}
+.tag{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:#eef0f7}.tag.sent{background:#e6ecff;color:var(--acc)}.tag.replied,.tag.Hot{background:#dcf5ea;color:var(--ok)}.tag.failed{background:#fde4e5;color:var(--bad)}.tag.Warm{background:#fff1d6;color:#a86a00}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}textarea{min-height:130px;resize:vertical}.out{white-space:pre-wrap}
+#toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;max-width:360px}#toast.on{opacity:1;transform:none}
+ul.l{margin:0;padding-left:20px;display:grid;gap:6px}.empty{color:var(--mut);padding:24px;text-align:center}
+@media(max-width:900px){#auth,#app{grid-template-columns:1fr}.brand{display:none}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}aside .logo,aside .sp{display:none}main{padding:20px}.k4,.c3,.c2{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div id="auth"><div class="brand"><div class="logo"><i></i>OutreachOS</div><div><h1>Every email, lead and reply in one place.</h1><p>Write outreach with AI, send it, track the replies, and let a chatbot qualify the people who visit your site.</p></div><ul><li>AI-written emails from your company details</li><li>WhatsApp number checker</li><li>Lead scoring and follow-up drafts</li><li>Analytics with plain-language advice</li></ul></div>
+<div class="form"><form id="af"><h2 id="at">Sign in</h2><label id="nl" class="hide">Name<input id="an"></label><label>Email<input id="ae" type="email" required></label><label>Password<input id="ap" type="password" required minlength="6"></label><button class="btn" id="ab">Sign in</button><div class="sub" style="margin:0"><span id="ah">New here?</span> <button type="button" class="link" id="as">Create an account</button></div></form></div></div>
+<div id="app" class="hide"><aside><div class="logo"><i></i>OutreachOS</div><div id="nav" class="grid" style="gap:4px"></div><div class="sp"></div><button id="lo">⎋ Sign out</button></aside><main id="main"></main></div><div id="toast"></div>
+<script>
+let T=localStorage.t,ME={},reg=false;const $=s=>document.querySelector(s);
+const api=async(p,m='GET',b)=>{const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json',Authorization:'Bearer '+T},body:b?JSON.stringify(b):undefined});const j=await r.json().catch(()=>({}));if(!r.ok){if(r.status===401&&T){logout()}throw new Error(j.error||'Request failed')}return j};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),3500)};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const busy=async(btn,f)=>{btn.disabled=true;try{await f()}catch(e){toast(e.message)}btn.disabled=false};
+const NAV=[['dash','▦','Dashboard'],['gen','✎','Mail studio'],['wa','✆','WhatsApp checker'],['leads','◎','Leads & scoring'],['bot','✦','AI sales chatbot'],['ins','◈','AI insights']];
+function logout(){localStorage.removeItem('t');T=null;$('#app').classList.add('hide');$('#auth').classList.remove('hide')}
+$('#lo').onclick=logout;
+$('#as').onclick=()=>{reg=!reg;$('#at').textContent=reg?'Create your account':'Sign in';$('#ab').textContent=reg?'Create account':'Sign in';$('#nl').classList.toggle('hide',!reg);$('#ah').textContent=reg?'Have an account?':'New here?';$('#as').textContent=reg?'Sign in':'Create an account'};
+$('#af').onsubmit=e=>{e.preventDefault();busy($('#ab'),async()=>{const r=await fetch('/api/auth/'+(reg?'register':'login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:$('#ae').value,password:$('#ap').value,name:$('#an').value})});const j=await r.json();if(!r.ok)throw new Error(j.error);T=j.token;localStorage.t=T;boot()})};
+async function boot(){if(!T)return;try{ME=await api('me')}catch{return}$('#auth').classList.add('hide');$('#app').classList.remove('hide');
+ $('#nav').innerHTML=NAV.map(n=>`<button data-v="${n[0]}">${n[1]} ${n[2]}</button>`).join('');$('#nav').onclick=e=>{const b=e.target.closest('button');if(b)go(b.dataset.v)};go('dash')}
+function go(v){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#main').innerHTML='<p class="sub">Loading…</p>';V[v]().catch(e=>toast(e.message))}
+const head=(t,s)=>`<h3>${t}</h3><p class="sub">${s}</p>`;
+const V={
+async dash(){const d=await api('stats');const rate=d.sent?Math.round(d.replied/d.sent*100):0;
+ $('#main').innerHTML=head('Dashboard',`Welcome back${ME.name?', '+esc(ME.name):''}. Here is how your outreach is doing.`)+`
+ <div class="grid k4"><div class="card kpi hl"><b>${d.sent}</b><span>Emails sent</span></div><div class="card kpi"><b>${d.replied}</b><span>Replies (${rate}% reply rate)</span></div><div class="card kpi"><b>${d.leads}</b><span>Leads captured</span></div><div class="card kpi"><b>${d.waYes}/${d.waYes+d.waNo}</b><span>Numbers on WhatsApp</span></div></div>
+ <div class="grid c3" style="margin-top:16px"><div class="card"><h4>Email status</h4><canvas id="c1"></canvas></div><div class="card"><h4>Emails sent per day</h4><canvas id="c2"></canvas></div><div class="card"><h4>Lead quality</h4><canvas id="c3"></canvas></div></div>
+ <div class="card" style="margin-top:16px"><div class="row" style="justify-content:space-between"><h4>Recent emails</h4><button class="btn sec" id="sy">Check inbox for replies</button></div>
+ ${d.recent.length?`<table><tr><th>To</th><th>Subject</th><th>Status</th><th>Date</th></tr>${d.recent.map(m=>`<tr><td>${esc(m.to_addr)}</td><td>${esc(m.subject)}</td><td><span class="tag ${m.status}">${m.status}</span></td><td>${esc(m.created)}</td></tr>`).join('')}</table>`:'<div class="empty">No emails yet. Open Mail studio to write and send your first one.</div>'}</div>`;
+ const P=['#3d4dff','#12a36b','#e5484d'],opt={plugins:{legend:{position:'bottom'}}};
+ new Chart($('#c1'),{type:'doughnut',data:{labels:['Sent','Replied','Failed'],datasets:[{data:[d.sent-d.replied,d.replied,d.failed],backgroundColor:P}]},options:opt});
+ new Chart($('#c2'),{type:'line',data:{labels:d.byDay.map(x=>x.d),datasets:[{label:'Emails',data:d.byDay.map(x=>x.c),borderColor:'#3d4dff',backgroundColor:'#3d4dff22',fill:true,tension:.35}]},options:{plugins:{legend:{display:false}}}});
+ new Chart($('#c3'),{type:'pie',data:{labels:d.scores.map(x=>x.k),datasets:[{data:d.scores.map(x=>x.c),backgroundColor:['#12a36b','#ffb020','#9aa0c3']}]},options:opt});
+ $('#sy').onclick=e=>busy(e.target,async()=>{const r=await api('mail/sync','POST');toast(r.replied+' new replies found');V.dash()})},
+
+async gen(){$('#main').innerHTML=head('Mail studio','Describe the company you want to reach. The AI writes the email; you send it, or let it send automatically.')+`
+ <div class="grid c2"><div class="card grid"><label>Company details<textarea id="gd" placeholder="Who they are, what they do, why you are writing, what you offer, and what you want from them."></textarea></label>
+ <div class="row"><label style="flex:1">Tone<select id="gt"><option>Professional</option><option>Friendly</option><option>Direct</option><option>Formal</option></select></label><label style="flex:1">Language<input id="gl" value="English"></label></div>
+ <label>Company email (needed to send)<input id="gto" type="email" placeholder="hello@company.com"></label>
+ <div class="row"><button class="btn sec" id="g1">Write draft</button><button class="btn" id="g2">Write and send now</button></div></div>
+ <div class="card grid" id="dr"><div class="empty">Your draft will appear here. You can edit it before sending.</div></div></div>`;
+ const det=()=>{if(!$('#gd').value.trim())throw new Error('Add the company details first');return $('#gd').value+'\nLanguage: '+$('#gl').value};
+ $('#g1').onclick=e=>busy(e.target,async()=>{const m=await api('ai/email','POST',{details:det(),tone:$('#gt').value});
+  $('#dr').innerHTML=`<label>Subject<input id="ds" value="${esc(m.subject)}"></label><label>Message<textarea id="db" style="min-height:260px">${esc(m.body)}</textarea></label><button class="btn" id="ds2">Send this email</button>`;
+  $('#ds2').onclick=e=>busy(e.target,async()=>{await api('mail/send','POST',{to:$('#gto').value,subject:$('#ds').value,body:$('#db').value});toast('Email sent')})});
+ $('#g2').onclick=e=>busy(e.target,async()=>{det();const m=await api('mail/auto','POST',{details:det(),tone:$('#gt').value,to:$('#gto').value});$('#dr').innerHTML=`<h4>Sent: ${esc(m.subject)}</h4><div class="out">${esc(m.body)}</div>`;toast('Email sent')})},
+
+async wa(){$('#main').innerHTML=head('WhatsApp checker','Find out which numbers are on WhatsApp before you reach out. Include the country code.')+`
+ <div class="grid c2"><div class="card grid" id="wc"><div id="wst" class="empty">Checking connection…</div></div><div class="card grid"><label>Numbers, one per line<textarea id="wn" placeholder="919876543210&#10;14155550123"></textarea></label><button class="btn" id="wb">Check numbers</button><div id="wr"></div></div></div>`;
+ const poll=async()=>{if(!$('#wst'))return;const s=await api('whatsapp/status');$('#wst').outerHTML=`<div id="wst">${s.ready?'<b style="color:var(--ok)">WhatsApp is connected.</b>':s.qr?`<p>Scan with WhatsApp → Linked devices.</p><img src="${s.qr}" width="220">`:'<p>Not connected. Link a WhatsApp account to run checks.</p><button class="btn" id="wcn">Connect WhatsApp</button>'}</div>`;
+  if($('#wcn'))$('#wcn').onclick=async()=>{await api('whatsapp/connect','POST');toast('Starting… the QR code appears in a few seconds')};if(!s.ready)setTimeout(poll,3000)};poll();
+ $('#wb').onclick=e=>busy(e.target,async()=>{const r=await api('whatsapp/check','POST',{numbers:$('#wn').value.split('\n')});$('#wr').innerHTML=`<table>${r.map(x=>`<tr><td>+${x.number}</td><td><span class="tag ${x.has_wa?'replied':'failed'}">${x.has_wa?'On WhatsApp':'Not found'}</span></td></tr>`).join('')}</table>`})},
+
+async leads(){const L=await api('leads');$('#main').innerHTML=head('Leads & scoring','Leads from your chatbot and manual entries, scored by AI. Spam and duplicates are filtered out.')+`
+ <div class="card"><h4>Add a lead</h4><div class="row"><input id="ln" placeholder="Name" style="flex:1"><input id="le" placeholder="Email" style="flex:1"><input id="lp" placeholder="Phone" style="flex:1"><input id="lneed" placeholder="Service needed" style="flex:1"><input id="lb" placeholder="Budget" style="flex:1"><button class="btn" id="la">Add and score</button></div></div>
+ <div class="card" style="margin-top:16px">${L.length?`<table><tr><th>Lead</th><th>Need</th><th>Budget</th><th>Score</th><th>Summary</th><th></th></tr>${L.map(l=>`<tr><td><b>${esc(l.name)}</b><br><small>${esc(l.email||l.phone)}</small></td><td>${esc(l.need)}</td><td>${esc(l.budget)}</td><td><span class="tag ${l.score>=70?'Hot':l.score>=40?'Warm':''}">${l.score}</span></td><td>${esc(l.summary)}</td><td><button class="btn sec fu" data-id="${l.id}">Draft follow-up</button></td></tr>`).join('')}</table>`:'<div class="empty">No leads yet. Add one above or connect the chatbot.</div>'}</div><div class="card out hide" id="fo" style="margin-top:16px"></div>`;
+ $('#la').onclick=e=>busy(e.target,async()=>{const r=await api('leads','POST',{name:$('#ln').value,email:$('#le').value,phone:$('#lp').value,need:$('#lneed').value,budget:$('#lb').value});if(r.duplicate||r.spam)toast(r.duplicate?'That email is already a lead':'Flagged as spam and skipped');V.leads()});
+ document.querySelectorAll('.fu').forEach(b=>b.onclick=()=>busy(b,async()=>{const r=await api('ai/followup','POST',{lead_id:b.dataset.id,channel:'email'});$('#fo').classList.remove('hide');$('#fo').textContent=r.text}))},
+
+async bot(){const k=await api('kb');$('#main').innerHTML=head('AI sales chatbot','Paste your FAQs, services and pricing notes. The chatbot answers from this text, asks qualifying questions and saves leads.')+`
+ <div class="grid c2"><div class="card grid"><label>Knowledge base<textarea id="kb" style="min-height:300px">${esc(k.content)}</textarea></label><button class="btn" id="ks">Save knowledge</button></div>
+ <div class="card grid"><h4>Your chatbot page</h4><p>Share or embed this link on your website:</p><input readonly value="${location.origin}/chat.html?u=${ME.id}"><iframe src="/chat.html?u=${ME.id}" style="width:100%;height:380px;border:1px solid var(--line);border-radius:10px"></iframe></div></div>`;
+ $('#ks').onclick=e=>busy(e.target,async()=>{await api('kb','POST',{content:$('#kb').value});toast('Knowledge saved')})},
+
+async ins(){$('#main').innerHTML=head('AI insights','The AI reviews your emails, replies and leads, then points out weak spots and new ideas.')+'<button class="btn" id="ib">Analyze my outreach</button><div id="io" style="margin-top:16px" class="grid"></div>';
+ $('#ib').onclick=e=>busy(e.target,async()=>{const r=await api('ai/insights','POST');const L=(t,a)=>`<div class="card"><h4>${t}</h4><ul class="l">${(a||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
+  $('#io').innerHTML=`<div class="card"><h4>Summary</h4><p>${esc(r.summary)}</p><p><b>Reply sentiment:</b> ${esc(r.reply_sentiment)}</p></div><div class="grid c2">${L('Drawbacks',r.drawbacks)}${L('What to do next',r.suggestions)}</div>${L('New ideas',r.ideas)}`})}
+};
+boot();
+</script></body></html>
