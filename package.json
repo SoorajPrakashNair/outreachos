@@ -1,3 +1,0 @@
-{"name":"outreachos","version":"1.0.0","main":"server.js","scripts":{"start":"node server.js"},
-"dependencies":{"bcryptjs":"^2.4.3","better-sqlite3":"^11.0.0","dotenv":"^16.4.5","express":"^4.19.2","imapflow":"^1.0.160","jsonwebtoken":"^9.0.2","nodemailer":"^6.9.14"},
-"optionalDependencies":{"qrcode":"^1.5.4","whatsapp-web.js":"^1.26.0"}}
