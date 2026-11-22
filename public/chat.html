@@ -1,0 +1,9 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chat with us</title>
+<style>body{margin:0;font:15px system-ui;background:#eef0f7;display:flex;justify-content:center}#w{width:100%;max-width:520px;height:100vh;display:flex;flex-direction:column;background:#fff}
+#m{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}.b{padding:10px 14px;border-radius:14px;max-width:80%;line-height:1.45}.u{align-self:flex-end;background:#3d4dff;color:#fff}.a{background:#eef0f7}
+form{display:flex;gap:8px;padding:12px;border-top:1px solid #e3e6f0}input{flex:1;padding:12px;border:1px solid #d5d9e8;border-radius:10px;font:inherit}button{padding:0 18px;border:0;border-radius:10px;background:#3d4dff;color:#fff;font-weight:600}</style></head>
+<body><div id="w"><div id="m"><div class="b a">Hi! Ask me anything about our services, in any language.</div></div><form id="f"><input id="i" placeholder="Type your message" autocomplete="off"><button>Send</button></form></div>
+<script>const uid=new URLSearchParams(location.search).get('u')||1,h=[],m=document.getElementById('m');
+const add=(t,c)=>{const d=document.createElement('div');d.className='b '+c;d.textContent=t;m.appendChild(d);m.scrollTop=m.scrollHeight};
+f.onsubmit=async e=>{e.preventDefault();const t=i.value.trim();if(!t)return;i.value='';add(t,'u');
+try{const r=await(await fetch('/api/chat/'+uid,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t,history:h})})).json();h.push({visitor:t},{assistant:r.reply});add(r.reply||r.error,'a')}catch{add('Connection problem. Please try again.','a')}}</script></body></html>

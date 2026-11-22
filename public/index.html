@@ -1,0 +1,164 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OutreachOS — AI outreach & lead intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0c0b10;--bg2:#15131c;--card:#1a1823;--line:#2b2838;--txt:#f1eee8;--mut:#9a95a8;--acc:#ff5a36;--lime:#c8ff3d;--vio:#7a5cff;--ok:#3ddc97;--bad:#ff5c6c}
+*{box-sizing:border-box}html{cursor:none}body{margin:0;font:15px/1.55 'Manrope',system-ui,sans-serif;color:var(--txt);background:var(--bg);overflow-x:hidden}
+button,input,select,textarea,a{font:inherit;cursor:none}.hide{display:none!important}
+h1,h3,.logo,.kpi b{font-family:'Syne',sans-serif}
+#cur{position:fixed;z-index:99;width:14px;height:14px;border-radius:50%;background:var(--lime);pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+#cur.big{width:56px;height:56px}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes orb{to{transform:translate(80px,-60px) scale(1.25)}}@keyframes marq{to{transform:translateX(-50%)}}
+#auth{min-height:100vh;display:grid;grid-template-columns:1.25fr 1fr;position:relative}
+.brand{position:relative;overflow:hidden;padding:56px;display:flex;flex-direction:column;justify-content:space-between}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:orb 10s ease-in-out infinite alternate;pointer-events:none}
+.o1{width:460px;height:460px;background:var(--acc);top:-100px;right:-80px}.o2{width:380px;height:380px;background:var(--vio);bottom:-120px;left:-60px;animation-delay:-5s}
+.brand>*{position:relative;z-index:1}
+.brand h1{font-size:clamp(48px,6.4vw,92px);line-height:.95;font-weight:800;margin:0;letter-spacing:-.04em}
+.brand h1 span{display:inline-block;animation:rise .8s both}.brand h1 span:nth-child(2){animation-delay:.12s;color:var(--lime)}.brand h1 span:nth-child(3){animation-delay:.24s}
+.brand p{color:var(--mut);max-width:460px;font-size:17px;margin:22px 0 0}
+.marq{overflow:hidden;white-space:nowrap;border-top:1px solid var(--line);padding-top:16px;color:var(--mut)}.marq div{display:inline-block;animation:marq 22s linear infinite}.marq b{color:var(--txt);margin:0 22px 0 0;font-weight:600}
+.logo{font-weight:800;font-size:22px;display:flex;gap:10px;align-items:center}.logo i{width:24px;height:24px;border-radius:50%;background:conic-gradient(var(--acc),var(--lime),var(--vio),var(--acc));display:block;animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(1turn)}}
+.form{display:flex;align-items:center;justify-content:center;padding:32px;background:var(--bg2);border-left:1px solid var(--line)}.form form{width:100%;max-width:380px;display:grid;gap:14px;animation:rise .7s .3s both}.form h2{margin:0;font:800 34px 'Syne',sans-serif}
+label{font-size:12px;font-weight:700;color:var(--mut);display:grid;gap:6px;text-transform:uppercase;letter-spacing:.07em}
+input,select,textarea{padding:13px 15px;border:1.5px solid var(--line);border-radius:14px;background:var(--bg);width:100%;outline:none;color:var(--txt);text-transform:none;letter-spacing:0;font-weight:500;transition:.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--lime);box-shadow:0 0 0 4px #c8ff3d1f}option{background:var(--bg)}
+.btn{border:0;background:var(--lime);color:#0c0b10;padding:13px 22px;border-radius:99px;font-weight:800;transition:transform .15s,background .2s;will-change:transform}.btn:hover{background:#fff}
+.btn.sec{background:transparent;color:var(--txt);border:1.5px solid var(--line)}.btn.sec:hover{border-color:var(--lime);color:var(--lime);background:transparent}.btn:disabled{opacity:.5}
+.link{background:none;border:0;color:var(--lime);font-weight:700;padding:0}
+#app{display:grid;grid-template-columns:268px 1fr;min-height:100vh}
+aside{background:var(--bg2);border-right:1px solid var(--line);padding:24px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:3px;overflow:auto}aside .logo{margin:0 10px 22px}
+aside button{all:unset;cursor:none;padding:10px 14px;border-radius:14px;display:flex;gap:12px;align-items:center;font-weight:600;color:var(--mut);transition:.2s;position:relative}
+aside button:hover{color:var(--txt);background:var(--card);padding-left:20px}aside button.on{background:var(--lime);color:#0c0b10}aside .sp{flex:1}aside small{color:var(--mut);padding:12px 14px 4px;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+main{padding:38px 44px;max-width:1320px;width:100%}main>*{animation:rise .6s both}main>*:nth-child(2){animation-delay:.07s}main>*:nth-child(3){animation-delay:.14s}main>*:nth-child(4){animation-delay:.21s}main>*:nth-child(5){animation-delay:.28s}
+h3{margin:0 0 6px;font-size:clamp(34px,4vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1}.sub{color:var(--mut);margin:0 0 28px}
+.grid{display:grid;gap:16px}.k4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:1fr 1.6fr 1fr}.c2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;transform-style:preserve-3d;transition:border-color .3s,transform .2s;will-change:transform}.card:hover{border-color:#4a4560}.card h4{margin:0 0 12px;font:800 17px 'Syne',sans-serif}
+.kpi b{display:block;font-size:54px;font-weight:800;line-height:1;letter-spacing:-.03em}.kpi span{color:var(--mut);font-size:13px}.kpi.hl{background:var(--lime);color:#0c0b10;border:0}.kpi.hl span{color:#2c3a05}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--mut);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.tag{padding:3px 11px;border-radius:99px;font-size:12px;font-weight:700;background:#2b2838}.tag.sent{background:#2a2466;color:#b9a9ff}.tag.replied,.tag.Hot,.tag.booked{background:#12382a;color:var(--ok)}.tag.failed{background:#42181e;color:var(--bad)}.tag.Warm{background:#463a12;color:#ffd35c}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}textarea{min-height:130px;resize:vertical}.out{white-space:pre-wrap}
+#toast{position:fixed;bottom:24px;right:24px;background:var(--lime);color:#0c0b10;font-weight:700;padding:14px 20px;border-radius:16px;opacity:0;transform:translateY(14px);transition:.3s;pointer-events:none;max-width:420px;z-index:100}#toast.on{opacity:1;transform:none}
+ul.l{margin:0;padding-left:20px;display:grid;gap:6px}.empty{color:var(--mut);padding:26px;text-align:center}
+@media(hover:none){html,button,input,select,textarea,a,aside button{cursor:auto}#cur{display:none}}
+@media(max-width:900px){#auth,#app{grid-template-columns:1fr}.brand{display:none}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}aside .logo,aside .sp,aside small{display:none}main{padding:20px}.k4,.c3,.c2{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style></head><body><div id="cur"></div>
+<div id="auth"><div class="brand"><div class="orb o1"></div><div class="orb o2"></div><div class="logo"><i></i>OutreachOS</div><div><h1><span>Reach.</span> <span>Reply.</span> <span>Win.</span></h1><p>Write outreach with AI, send it, track the replies, and let a chatbot qualify the people who visit your site.</p></div><div class="marq"><div><b>AI mail studio</b><b>WhatsApp checker</b><b>Lead scoring</b><b>Email sequences</b><b>Booking</b><b>Quote builder</b><b>Lead routing</b><b>AI insights</b><b>AI mail studio</b><b>WhatsApp checker</b><b>Lead scoring</b><b>Email sequences</b><b>Booking</b><b>Quote builder</b><b>Lead routing</b><b>AI insights</b></div></div></div>
+<div class="form"><form id="af"><h2 id="at">Sign in</h2><label id="nl" class="hide">Name<input id="an"></label><label>Email<input id="ae" type="email" required></label><label>Password<input id="ap" type="password" required minlength="6"></label><button class="btn" id="ab">Sign in</button><div class="sub" style="margin:0"><span id="ah">New here?</span> <button type="button" class="link" id="as">Create an account</button></div></form></div></div>
+<div id="app" class="hide"><aside><div class="logo"><i></i>OutreachOS</div><div id="nav" class="grid" style="gap:3px"></div><div class="sp"></div><button id="lo">⎋ Sign out</button></aside><main id="main"></main></div><div id="toast"></div>
+<script>
+let T=localStorage.t,ME={},reg=false;const $=s=>document.querySelector(s);
+const api=async(p,m='GET',b)=>{const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json',Authorization:'Bearer '+T},body:b?JSON.stringify(b):undefined});const j=await r.json().catch(()=>({}));if(!r.ok){if(r.status===401&&T){logout()}throw new Error(j.error||('Request failed, code '+r.status))}return j};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),9000)};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const busy=async(btn,f)=>{btn.disabled=true;try{await f()}catch(e){toast(e.message)}btn.disabled=false};
+const DR=JSON.parse(sessionStorage.dr||'{}');
+const keep=ids=>ids.forEach(id=>{const el=$('#'+id);if(!el)return;if(DR[id]!==undefined)el.value=DR[id];el.addEventListener('input',()=>{DR[id]=el.value;sessionStorage.dr=JSON.stringify(DR)})});
+const NAV=[['dash','▦','Dashboard'],['gen','✎','Mail studio'],['lists','☰','Contact lists'],['seq','↻','Email sequences'],['rep','✉','Reply assistant'],['wa','✆','WhatsApp checker'],['leads','◎','Leads & scoring'],['route','⇄','Lead routing'],['quote','❖','Quote builder'],['book','◷','Appointments'],['bot','✦','AI sales chatbot'],['ins','◈','AI insights'],['admin','⚙','Admin']];
+function logout(){localStorage.removeItem('t');T=null;$('#app').classList.add('hide');$('#auth').classList.remove('hide')}
+$('#lo').onclick=logout;
+$('#as').onclick=()=>{reg=!reg;$('#at').textContent=reg?'Create your account':'Sign in';$('#ab').textContent=reg?'Create account':'Sign in';$('#nl').classList.toggle('hide',!reg);$('#ah').textContent=reg?'Have an account?':'New here?';$('#as').textContent=reg?'Sign in':'Create an account'};
+$('#af').onsubmit=e=>{e.preventDefault();busy($('#ab'),async()=>{const r=await fetch('/api/auth/'+(reg?'register':'login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:$('#ae').value,password:$('#ap').value,name:$('#an').value})});const j=await r.json();if(!r.ok)throw new Error(j.error);T=j.token;localStorage.t=T;boot()})};
+async function boot(){if(!T)return;try{ME=await api('me')}catch{return}$('#auth').classList.add('hide');$('#app').classList.remove('hide');
+ $('#nav').innerHTML=NAV.map(n=>`<button data-v="${n[0]}">${n[1]} ${n[2]}</button>`).join('');$('#nav').onclick=e=>{const b=e.target.closest('button');if(b)go(b.dataset.v)};go('dash')}
+function go(v){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#main').innerHTML='<p class="sub">Loading…</p>';V[v]().then(fx).catch(e=>toast(e.message))}
+const head=(t,s)=>`<h3>${t}</h3><p class="sub">${s}</p>`;
+const tbl=(cols,rows,empty)=>rows.length?`<table><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`:`<div class="empty">${empty}</div>`;
+const CH=()=>{Chart.defaults.font.family='Manrope';Chart.defaults.color='#9a95a8';Chart.defaults.borderColor='#2b2838'};
+// ---------- motion layer ----------
+const cur=$('#cur');let mx=0,my=0;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('button,a,.card')));
+document.addEventListener('mousemove',e=>{
+ const b=e.target.closest('.btn');document.querySelectorAll('.btn').forEach(x=>{if(x!==b)x.style.transform=''});
+ if(b){const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`}
+ const c=e.target.closest('.card');document.querySelectorAll('.card').forEach(x=>{if(x!==c)x.style.transform=''});
+ if(c){const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${px*6}deg) rotateX(${-py*6}deg)`}});
+function fx(){document.querySelectorAll('.kpi b').forEach(b=>{const e=+b.textContent;if(!/^\d+$/.test(b.textContent))return;const s=performance.now();(function f(x){const p=Math.min((x-s)/900,1);b.textContent=Math.round(e*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)})}
+
+const V={
+async dash(){const d=await api('stats');CH();const rate=d.sent?Math.round(d.replied/d.sent*100):0;
+ $('#main').innerHTML=head('Dashboard',`Welcome back${ME.name?', '+esc(ME.name):''}. Here is how your outreach is doing.`)+`
+ <div class="grid k4"><div class="card kpi hl"><b>${d.sent}</b><span>Emails sent</span></div><div class="card kpi"><b>${d.replied}</b><span>Replies (${rate}% reply rate)</span></div><div class="card kpi"><b>${d.leads}</b><span>Leads captured</span></div><div class="card kpi"><b>${d.waYes}</b><span>Numbers on WhatsApp (of ${d.waYes+d.waNo})</span></div></div>
+ <div class="grid c3" style="margin-top:16px"><div class="card"><h4>Email status</h4><canvas id="c1"></canvas></div><div class="card"><h4>Emails sent per day</h4><canvas id="c2"></canvas></div><div class="card"><h4>Lead quality</h4><canvas id="c3"></canvas></div></div>
+ <div class="card" style="margin-top:16px"><div class="row" style="justify-content:space-between"><h4>Recent emails</h4><button class="btn sec" id="sy">Check inbox for replies</button></div>${tbl(['To','Subject','Status','Date'],d.recent.map(m=>[esc(m.to_addr),esc(m.subject),`<span class="tag ${m.status}">${m.status}</span>`,esc(m.created)]),'No emails yet. Open Mail studio to write and send your first one.')}</div>`;
+ const P=['#7a5cff','#3ddc97','#ff5c6c'],opt={plugins:{legend:{position:'bottom'}}};
+ new Chart($('#c1'),{type:'doughnut',data:{labels:['Sent','Replied','Failed'],datasets:[{data:[d.sent-d.replied,d.replied,d.failed],backgroundColor:P,borderWidth:0}]},options:opt});
+ new Chart($('#c2'),{type:'line',data:{labels:d.byDay.map(x=>x.d),datasets:[{label:'Emails',data:d.byDay.map(x=>x.c),borderColor:'#c8ff3d',backgroundColor:'#c8ff3d22',fill:true,tension:.4}]},options:{plugins:{legend:{display:false}}}});
+ new Chart($('#c3'),{type:'pie',data:{labels:d.scores.map(x=>x.k),datasets:[{data:d.scores.map(x=>x.c),backgroundColor:['#3ddc97','#ffd35c','#4a4560'],borderWidth:0}]},options:opt});
+ $('#sy').onclick=e=>busy(e.target,async()=>{const r=await api('mail/sync','POST');toast(r.replied+' new replies found');go('dash')})},
+
+async gen(){$('#main').innerHTML=head('Mail studio','Describe the company. The AI writes the email; you send it, or let it send automatically.')+`
+ <div class="grid c2"><div class="card grid"><label>Company details<textarea id="gd" placeholder="Who they are, what they do, why you are writing, what you offer, and what you want."></textarea></label>
+ <div class="row"><label style="flex:1">Tone<select id="gt"><option>Professional</option><option>Friendly</option><option>Direct</option><option>Formal</option></select></label><label style="flex:1">Language<input id="gl" value="English"></label></div>
+ <label>Company email (needed to send)<input id="gto" type="email" placeholder="hello@company.com"></label>
+ <div class="row"><button class="btn sec" id="g1">Write draft</button><button class="btn" id="g2">Write and send now</button></div></div>
+ <div class="card grid" id="dr"><div class="empty">Your draft will appear here. You can edit it before sending.</div></div></div>`;
+ keep(['gd','gt','gl','gto']);
+ const det=()=>{if(!$('#gd').value.trim())throw new Error('Add the company details first');return $('#gd').value+'\nLanguage: '+$('#gl').value};
+ $('#g1').onclick=e=>busy(e.target,async()=>{const m=await api('ai/email','POST',{details:det(),tone:$('#gt').value});
+  $('#dr').innerHTML=`<label>Subject<input id="ds" value="${esc(m.subject)}"></label><label>Message<textarea id="db" style="min-height:260px">${esc(m.body)}</textarea></label><button class="btn" id="ds2">Send this email</button>`;
+  $('#ds2').onclick=e=>busy(e.target,async()=>{await api('mail/send','POST',{to:$('#gto').value,subject:$('#ds').value,body:$('#db').value});toast('Email sent')})});
+ $('#g2').onclick=e=>busy(e.target,async()=>{det();const m=await api('mail/auto','POST',{details:det(),tone:$('#gt').value,to:$('#gto').value});$('#dr').innerHTML=`<h4>Sent: ${esc(m.subject)}</h4><div class="out">${esc(m.body)}</div>`;toast('Email sent')})},
+
+async lists(){const C=await api('contacts');$('#main').innerHTML=head('Contact lists','Import a CSV (name, email, company, note per line), then send personalised AI emails to the list.')+`
+ <div class="grid c2"><div class="card grid"><label>Paste CSV lines<textarea id="csv" placeholder="Asha Rao, asha@acme.com, Acme Ltd, interested in design&#10;Tom Lee, tom@bolt.io, Bolt, startup"></textarea></label><button class="btn" id="ci">Import contacts</button></div>
+ <div class="card grid"><h4>Bulk personalised email</h4><label>What are you offering?<textarea id="bd" placeholder="Describe your offer once. The AI personalises it for each contact."></textarea></label><label>How many contacts (max 20)<input id="bl" type="number" value="5" min="1" max="20"></label><button class="btn" id="bs">Write and send to the list</button><small style="color:var(--mut)">Sends slowly, one every two seconds. Start small to protect your email account.</small></div></div>
+ <div class="card" style="margin-top:16px"><h4>${C.length} contacts</h4>${tbl(['Name','Email','Company','Note'],C.map(c=>[esc(c.name),esc(c.email),esc(c.company),esc(c.note)]),'No contacts yet. Import a CSV above.')}</div>`;
+ keep(['csv','bd','bl']);
+ $('#ci').onclick=e=>busy(e.target,async()=>{const r=await api('contacts/import','POST',{csv:$('#csv').value});toast(r.imported+' contacts imported');DR.csv='';go('lists')});
+ $('#bs').onclick=e=>busy(e.target,async()=>{if(!$('#bd').value.trim())throw new Error('Describe your offer first');toast('Sending… this can take a minute');const r=await api('contacts/bulk','POST',{details:$('#bd').value,limit:$('#bl').value});toast(r.sent+' sent, '+r.failed+' failed')})},
+
+async seq(){const [F,D]=await Promise.all([api('seq'),api('stats')]);$('#main').innerHTML=head('Email sequences','Plan automatic follow-ups for emails with no reply. They send on day 3 and day 7, and skip if the company replies.')+`
+ <div class="card grid"><h4>Plan follow-ups for a sent email</h4><label>Choose an email<select id="sm">${D.recent.filter(m=>m.status==='sent').map(m=>`<option value="${m.id}">${esc(m.to_addr)} — ${esc(m.subject)}</option>`).join('')||'<option value="">No sent emails yet</option>'}</select></label><button class="btn" id="sp">Write follow-ups with AI</button></div>
+ <div class="card" style="margin-top:16px"><h4>Scheduled follow-ups</h4>${tbl(['To','Subject','Due','Status'],F.map(f=>[esc(f.to_addr),esc(f.subject),esc(f.due),`<span class="tag ${f.status==='sent'?'replied':f.status==='failed'?'failed':''}">${f.status}</span>`]),'Nothing scheduled yet.')}</div>`;
+ $('#sp').onclick=e=>busy(e.target,async()=>{if(!$('#sm').value)throw new Error('Send an email first');const r=await api('seq/plan','POST',{mail_id:$('#sm').value});toast(r.planned+' follow-ups scheduled');go('seq')})},
+
+async rep(){const R=await api('replies');$('#main').innerHTML=head('Reply assistant','When a company replies, the AI drafts your answer. Use Check inbox on the dashboard to pull in new replies.')+`
+ <div class="card">${R.length?R.map(r=>`<div style="padding:14px 0;border-bottom:1px solid var(--line)"><b>${esc(r.to_addr)}</b> <small style="color:var(--mut)">${esc(r.subject)}</small><p style="color:var(--mut);margin:6px 0">${esc((r.reply||'').slice(0,260))}</p><button class="btn sec rb" data-id="${r.id}">Draft my reply</button></div>`).join(''):'<div class="empty">No replies yet. Check your inbox from the dashboard.</div>'}</div><div class="card out hide" id="ro" style="margin-top:16px"></div>`;
+ document.querySelectorAll('.rb').forEach(b=>b.onclick=()=>busy(b,async()=>{const r=await api('ai/reply','POST',{mail_id:b.dataset.id});$('#ro').classList.remove('hide');$('#ro').textContent=r.text}))},
+
+async wa(){$('#main').innerHTML=head('WhatsApp checker','Find out which numbers are on WhatsApp. Include the country code. Needs a local computer or VPS.')+`
+ <div class="grid c2"><div class="card grid" id="wc"><div id="wst" class="empty">Checking connection…</div></div><div class="card grid"><label>Numbers, one per line<textarea id="wn" placeholder="919876543210&#10;14155550123"></textarea></label><button class="btn" id="wb">Check numbers</button><div id="wr"></div></div></div>`;
+ keep(['wn']);
+ const poll=async()=>{if(!$('#wst'))return;const s=await api('whatsapp/status');$('#wst').outerHTML=`<div id="wst">${s.ready?'<b style="color:var(--ok)">WhatsApp is connected.</b>':s.qr?`<p>Scan with WhatsApp → Linked devices.</p><img src="${s.qr}" width="220">`:'<p>Not connected. Link a WhatsApp account to run checks.</p><button class="btn" id="wcn">Connect WhatsApp</button>'}</div>`;
+  if($('#wcn'))$('#wcn').onclick=async()=>{await api('whatsapp/connect','POST');toast('Starting… the QR code appears in a few seconds')};if(!s.ready)setTimeout(poll,3000)};poll();
+ $('#wb').onclick=e=>busy(e.target,async()=>{const r=await api('whatsapp/check','POST',{numbers:$('#wn').value.split('\n')});$('#wr').innerHTML=tbl(['Number','Result'],r.map(x=>['+'+x.number,`<span class="tag ${x.has_wa?'replied':'failed'}">${x.has_wa?'On WhatsApp':'Not found'}</span>`]),'')})},
+
+async leads(){const L=await api('leads');$('#main').innerHTML=head('Leads & scoring','Leads from your chatbot and manual entries, scored by AI. Spam and duplicates are filtered out.')+`
+ <div class="card"><h4>Add a lead</h4><div class="row"><input id="ln" placeholder="Name" style="flex:1"><input id="le" placeholder="Email" style="flex:1"><input id="lp" placeholder="Phone" style="flex:1"><input id="lneed" placeholder="Service needed" style="flex:1"><input id="lb" placeholder="Budget" style="flex:1"><button class="btn" id="la">Add and score</button></div></div>
+ <div class="card" style="margin-top:16px">${tbl(['Lead','Need','Budget','Score','Summary',''],L.map(l=>[`<b>${esc(l.name)}</b><br><small>${esc(l.email||l.phone)}</small>`,esc(l.need),esc(l.budget),`<span class="tag ${l.score>=70?'Hot':l.score>=40?'Warm':''}">${l.score}</span>`,esc(l.summary),`<button class="btn sec fu" data-id="${l.id}">Draft follow-up</button>`]),'No leads yet. Add one above or connect the chatbot.')}</div><div class="card out hide" id="fo" style="margin-top:16px"></div>`;
+ keep(['ln','le','lp','lneed','lb']);
+ $('#la').onclick=e=>busy(e.target,async()=>{const r=await api('leads','POST',{name:$('#ln').value,email:$('#le').value,phone:$('#lp').value,need:$('#lneed').value,budget:$('#lb').value});if(r.duplicate||r.spam)toast(r.duplicate?'That email is already a lead':'Flagged as spam and skipped');go('leads')});
+ document.querySelectorAll('.fu').forEach(b=>b.onclick=()=>busy(b,async()=>{const r=await api('ai/followup','POST',{lead_id:b.dataset.id,channel:'email'});$('#fo').classList.remove('hide');$('#fo').textContent=r.text}))},
+
+async route(){const [R,L]=await Promise.all([api('routes'),api('routed')]);$('#main').innerHTML=head('Lead routing','Send each lead to the right person. A rule matches a keyword in the lead\'s need, budget or location.')+`
+ <div class="card"><h4>Add a rule</h4><div class="row"><input id="rk" placeholder="Keyword, e.g. design or Dubai" style="flex:1"><input id="ro2" placeholder="Send to, e.g. Sara (sales)" style="flex:1"><button class="btn" id="ra">Add rule</button></div><p class="sub" style="margin:12px 0 0">${R.map(r=>`<span class="tag">${esc(r.keyword)} → ${esc(r.owner)}</span> `).join('')||'No rules yet.'}</p></div>
+ <div class="card" style="margin-top:16px">${tbl(['Lead','Need','Score','Assigned to'],L.map(l=>[esc(l.name),esc(l.need),l.score,`<span class="tag ${l.owner==='Unassigned'?'':'booked'}">${esc(l.owner)}</span>`]),'No leads to route yet.')}</div>`;
+ $('#ra').onclick=e=>busy(e.target,async()=>{if(!$('#rk').value||!$('#ro2').value)throw new Error('Fill in both fields');await api('routes','POST',{keyword:$('#rk').value,owner:$('#ro2').value});go('route')})},
+
+async quote(){const Q=await api('quotes');$('#main').innerHTML=head('Quote builder','List what the client wants. The AI drafts an estimate for you to review before sending anything.')+`
+ <div class="grid c2"><div class="card grid"><label>Client name<input id="qc"></label><label>Services chosen<textarea id="qi" placeholder="e.g. Website redesign, 5 pages, SEO setup, monthly support"></textarea></label><button class="btn" id="qb">Draft the quote</button></div><div class="card out" id="qo"><div class="empty">Your quote draft appears here.</div></div></div>
+ <div class="card" style="margin-top:16px"><h4>Saved quotes</h4>${tbl(['Client','Estimate','Status','Date'],Q.map(q=>[esc(q.client),esc(q.total),`<span class="tag">${q.status}</span>`,esc(q.created)]),'No quotes yet.')}</div>`;
+ keep(['qc','qi']);
+ $('#qb').onclick=e=>busy(e.target,async()=>{if(!$('#qc').value||!$('#qi').value)throw new Error('Add the client and services first');const r=await api('ai/quote','POST',{client:$('#qc').value,items:$('#qi').value});$('#qo').innerHTML=`<b>Estimate: ${esc(r.total)}</b>\n\n${esc(r.body)}`})},
+
+async book(){const B=await api('bookings');const link=location.origin+'/book.html?u='+ME.id;$('#main').innerHTML=head('Appointments','Share your booking page. Visitors pick a time for a call or demo, and it appears here.')+`
+ <div class="card grid"><h4>Your booking page</h4><input readonly value="${link}"></div><div class="card" style="margin-top:16px"><h4>Upcoming</h4>${tbl(['When','Name','Email','Topic'],B.map(b=>[esc(b.slot),esc(b.name),esc(b.email),esc(b.topic)]),'No bookings yet.')}</div>`},
+
+async bot(){const k=await api('kb');$('#main').innerHTML=head('AI sales chatbot','Paste your FAQs, services and pricing notes. The chatbot answers from this text, asks qualifying questions and saves leads.')+`
+ <div class="grid c2"><div class="card grid"><label>Knowledge base<textarea id="kb" style="min-height:300px">${esc(k.content)}</textarea></label><button class="btn" id="ks">Save knowledge</button></div>
+ <div class="card grid"><h4>Your chatbot page</h4><p>Share or embed this link on your website:</p><input readonly value="${location.origin}/chat.html?u=${ME.id}"><iframe src="/chat.html?u=${ME.id}" style="width:100%;height:380px;border:1px solid var(--line);border-radius:14px"></iframe></div></div>`;
+ $('#ks').onclick=e=>busy(e.target,async()=>{await api('kb','POST',{content:$('#kb').value});toast('Knowledge saved')})},
+
+async ins(){$('#main').innerHTML=head('AI insights','The AI reviews your emails, replies and leads, then points out weak spots and new ideas.')+'<button class="btn" id="ib">Analyze my outreach</button><div id="io" style="margin-top:16px" class="grid"></div>';
+ $('#ib').onclick=e=>busy(e.target,async()=>{const r=await api('ai/insights','POST');const L=(t,a)=>`<div class="card"><h4>${t}</h4><ul class="l">${(a||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
+  $('#io').innerHTML=`<div class="card"><h4>Summary</h4><p>${esc(r.summary)}</p><p><b>Reply sentiment:</b> ${esc(r.reply_sentiment)}</p></div><div class="grid c2">${L('Drawbacks',r.drawbacks)}${L('What to do next',r.suggestions)}</div>${L('New ideas',r.ideas)}`})},
+
+async admin(){const d=await api('admin');$('#main').innerHTML=head('Admin','Everyone using this site, and totals. Only the first account created can see this page.')+`
+ <div class="grid k4"><div class="card kpi hl"><b>${d.users.length}</b><span>Users</span></div><div class="card kpi"><b>${d.total.mails}</b><span>Emails sent</span></div><div class="card kpi"><b>${d.total.leads}</b><span>Leads</span></div><div class="card kpi"><b>${d.total.bookings}</b><span>Bookings</span></div></div>
+ <div class="card" style="margin-top:16px"><h4>Users</h4>${tbl(['ID','Name','Email','Emails','Leads'],d.users.map(u=>[u.id,esc(u.name),esc(u.email),u.mails,u.leads]),'No users.')}</div>`}
+};
+boot();
+</script></body></html>
